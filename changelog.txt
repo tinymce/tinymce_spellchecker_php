@@ -1,4 +1,5 @@
-Version 2.0.3 (2008-0x-xx)
+Version 2.0.3 (2010-04-19)
+	Added standalone support. Will use native spellchecker for supported browsers.
 	Added @package phpdoc comments. Patch contributed by Jacob Santos.
 	Fixed some PHP missing function issue.
 Version 2.0.2 (2008-04-30)

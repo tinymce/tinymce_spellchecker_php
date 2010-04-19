@@ -35,6 +35,7 @@
 		<copy todir="${temp_dir}/spellchecker_php">
 			<fileset dir=".">
 				<include name="**"/>
+				<exclude name="**/.git/**"/>
 				<exclude name="**/.*"/>
 				<exclude name="tools/**"/>
 				<exclude name="build.*"/>
@@ -49,7 +50,7 @@
 		<propertyregex property="file_version" input="${version}" regexp="\." replace="_" />
 
 		<!-- Replace backend with php -->
-		<replaceregexp match="\&quot;\{backend\}\&quot;" replace="this.url+'/rpc.php'" flags="g" byline="true">
+		<replaceregexp match="\&quot;\{backend\}\&quot;" replace="this.url+'/rpc.php'" byline="true">
 			<fileset dir="${temp_dir}">
 				<include name="**/*.js*" />
 			</fileset>
