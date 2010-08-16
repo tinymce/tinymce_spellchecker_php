@@ -27,7 +27,7 @@
 
 			t.url = url;
 			t.editor = ed;
-			t.rpcUrl = ed.getParam("spellchecker_rpc_url", this.url+'/rpc.php');
+			t.rpcUrl = ed.getParam("spellchecker_rpc_url", "{backend}");
 
 			if (t.rpcUrl == '{backend}') {
 				// Sniff if the browser supports native spellchecking (Don't know of a better way)
@@ -262,7 +262,9 @@
 		},
 
 		_showMenu : function(ed, e) {
-			var t = this, ed = t.editor, m = t._menu, p1, dom = ed.dom, vp = dom.getViewPort(ed.getWin());
+			var t = this, ed = t.editor, m = t._menu, p1, dom = ed.dom, vp = dom.getViewPort(ed.getWin()), wordSpan = e.target;
+
+			e = 0; // Fixes IE memory leak
 
 			if (!m) {
 				p1 = DOM.getPos(ed.getContentAreaContainer());
@@ -277,11 +279,11 @@
 				t._menu = m;
 			}
 
-			if (dom.hasClass(e.target, 'mceItemHiddenSpellWord')) {
+			if (dom.hasClass(wordSpan, 'mceItemHiddenSpellWord')) {
 				m.removeAll();
 				m.add({title : 'spellchecker.wait', 'class' : 'mceMenuItemTitle'}).setDisabled(1);
 
-				t._sendRPC('getSuggestions', [t.selectedLang, dom.decode(e.target.innerHTML)], function(r) {
+				t._sendRPC('getSuggestions', [t.selectedLang, dom.decode(wordSpan.innerHTML)], function(r) {
 					var ignoreRpc;
 
 					m.removeAll();
@@ -290,7 +292,7 @@
 						m.add({title : 'spellchecker.sug', 'class' : 'mceMenuItemTitle'}).setDisabled(1);
 						each(r, function(v) {
 							m.add({title : v, onclick : function() {
-								dom.replace(ed.getDoc().createTextNode(v), e.target);
+								dom.replace(ed.getDoc().createTextNode(v), wordSpan);
 								t._checkDone();
 							}});
 						});
@@ -303,9 +305,9 @@
 					m.add({
 						title : 'spellchecker.ignore_word',
 						onclick : function() {
-							var word = e.target.innerHTML;
+							var word = wordSpan.innerHTML;
 
-							dom.remove(e.target, 1);
+							dom.remove(wordSpan, 1);
 							t._checkDone();
 
 							// tell the server if we need to
@@ -321,7 +323,7 @@
 					m.add({
 						title : 'spellchecker.ignore_words',
 						onclick : function() {
-							var word = e.target.innerHTML;
+							var word = wordSpan.innerHTML;
 
 							t._removeWords(dom.decode(word));
 							t._checkDone();
@@ -341,9 +343,9 @@
 						m.add({
 							title : 'spellchecker.learn_word',
 							onclick : function() {
-								var word = e.target.innerHTML;
+								var word = wordSpan.innerHTML;
 
-								dom.remove(e.target, 1);
+								dom.remove(wordSpan, 1);
 								t._checkDone();
 
 								ed.setProgressState(1);
@@ -357,9 +359,9 @@
 					m.update();
 				});
 
-				ed.selection.select(e.target);
-				p1 = dom.getPos(e.target);
-				m.showMenu(p1.x, p1.y + e.target.offsetHeight - vp.y);
+				ed.selection.select(wordSpan);
+				p1 = dom.getPos(wordSpan);
+				m.showMenu(p1.x, p1.y + wordSpan.offsetHeight - vp.y);
 
 				return tinymce.dom.Event.cancel(e);
 			} else
