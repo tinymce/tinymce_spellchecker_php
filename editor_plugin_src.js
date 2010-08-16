@@ -27,7 +27,7 @@
 
 			t.url = url;
 			t.editor = ed;
-			t.rpcUrl = ed.getParam("spellchecker_rpc_url", "{backend}");
+			t.rpcUrl = ed.getParam("spellchecker_rpc_url", this.url+'/rpc.php');
 
 			if (t.rpcUrl == '{backend}') {
 				// Sniff if the browser supports native spellchecking (Don't know of a better way)
@@ -216,6 +216,7 @@
 				}
 			});
 
+			ed.getBody().innerHTML = ed.getBody().innerHTML; // Normalize text nodes
 			se.moveToBookmark(b);
 		},
 
@@ -308,7 +309,7 @@
 							t._checkDone();
 
 							// tell the server if we need to
-							if (ignore_rpc) {
+							if (ignoreRpc) {
 								ed.setProgressState(1);
 								t._sendRPC('ignoreWord', [t.selectedLang, word], function(r) {
 									ed.setProgressState(0);
@@ -326,7 +327,7 @@
 							t._checkDone();
 
 							// tell the server if we need to
-							if (ignore_rpc) {
+							if (ignoreRpc) {
 								ed.setProgressState(1);
 								t._sendRPC('ignoreWords', [t.selectedLang, word], function(r) {
 									ed.setProgressState(0);
