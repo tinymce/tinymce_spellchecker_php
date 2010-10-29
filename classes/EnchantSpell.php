@@ -53,6 +53,7 @@ class EnchantSpell extends SpellChecker {
 		if (enchant_broker_dict_exists($r,$lang)) {
 			$d = enchant_broker_request_dict($r, $lang);
 			$suggs = enchant_dict_suggest($d, $word);
+            if(!is_array($suggs)) $suggs = array();
 
 			enchant_broker_free_dict($d);
 		} else {
