@@ -1,3 +1,5 @@
+Version 2.0.4 (2010-12-20)
+	Fixed issue with the JSON class not having the correct number of parameters to ord calls.
 Version 2.0.3 (2010-04-19)
 	Added standalone support. Will use native spellchecker for supported browsers.
 	Added @package phpdoc comments. Patch contributed by Jacob Santos.
