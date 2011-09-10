@@ -10,6 +10,13 @@
 	//$config['general.engine'] = 'PSpellShell';
 	//$config['general.remote_rpc_url'] = 'http://some.other.site/some/url/rpc.php';
 
+	// GoogleSpell settings
+	//$config['GoogleSpell.proxyhost'] = '192.168.1.1';
+	//$config['GoogleSpell.proxyport'] = 3128;
+	//$config['GoogleSpell.proxytype'] = 'HTML'; // or SOCKS5
+	//$config['GoogleSpell.proxyuser'] = '';
+	//$config['GoogleSpell.proxypassword'] = '';
+
 	// PSpell settings
 	$config['PSpell.mode'] = PSPELL_FAST;
 	$config['PSpell.spelling'] = "";
