@@ -1,4 +1,5 @@
-Version 2.0.6 (2011-??-??)
+Version 2.0.6 (2011-09-29)
+	Fixed incorrect position of suggestion menu.
 	Fixed handling of mispelled words with no suggestions in PSpellShell engine.
 	Fixed PSpellShell command on Windows.
 	Fixed bug where Javascript error is produced when enchant_dict_suggest() returns unexpected result.
