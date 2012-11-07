@@ -16,6 +16,11 @@ class GoogleSpell extends SpellChecker {
 	 * @return {Array} Array of misspelled words.
 	 */
 	function &checkWords($lang, $words) {
+		foreach ( explode( ' ', $this->config['general.ignored_words'] ) as $ignore ) {
+			if ( false !== $index = array_search( $ignore, $words ) ) {
+				unset( $words[ $index ] );
+			}
+		}
 		$wordstr = implode(' ', $words);
 		$matches = $this->_getMatches($lang, $wordstr);
 		$words = array();

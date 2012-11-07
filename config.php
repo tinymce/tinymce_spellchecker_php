@@ -9,6 +9,7 @@
 	//$config['general.engine'] = 'PSpell';
 	//$config['general.engine'] = 'PSpellShell';
 	//$config['general.remote_rpc_url'] = 'http://some.other.site/some/url/rpc.php';
+	$config['general.ignored_words'] = 'TinyMCE WordPress';
 
 	// PSpell settings
 	$config['PSpell.mode'] = PSPELL_FAST;

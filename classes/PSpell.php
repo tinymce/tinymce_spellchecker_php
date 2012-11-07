@@ -16,6 +16,11 @@ class PSpell extends SpellChecker {
 	 * @return {Array} Array of misspelled words.
 	 */
 	function &checkWords($lang, $words) {
+		foreach ( explode( ' ', $this->config['general.ignored_words'] ) as $ignore ) {
+			if ( false !== $index = array_search( $ignore, $words ) ) {
+				unset( $words[ $index ] );
+			}
+		}
 		$plink = $this->_getPLink($lang);
 
 		$outWords = array();
