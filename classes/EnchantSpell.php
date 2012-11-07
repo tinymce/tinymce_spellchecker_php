@@ -18,6 +18,11 @@ class EnchantSpell extends SpellChecker {
 	 * @return Array of misspelled words.
 	 */
 	function &checkWords($lang, $words) {
+		foreach ( explode( ' ', $this->config['general.ignored_words'] ) as $ignore ) {
+			if ( $index = array_search( $ignore, $words ) ) {
+				array_splice( $words, $index, 1 );
+			}
+		}
 		$r = enchant_broker_init();
 		
 		if (enchant_broker_dict_exists($r,$lang)) {
