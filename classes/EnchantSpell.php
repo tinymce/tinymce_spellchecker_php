@@ -19,8 +19,8 @@ class EnchantSpell extends SpellChecker {
 	 */
 	function &checkWords($lang, $words) {
 		foreach ( explode( ' ', $this->config['general.ignored_words'] ) as $ignore ) {
-			if ( $index = array_search( $ignore, $words ) ) {
-				array_splice( $words, $index, 1 );
+			if ( false !== $index = array_search( $ignore, $words ) ) {
+				unset( $words[ $index ] );
 			}
 		}
 		$r = enchant_broker_init();
