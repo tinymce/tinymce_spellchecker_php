@@ -10,8 +10,7 @@
 require_once("./includes/general.php");
 
 // Set RPC response headers
-header('Content-Type: text/plain');
-header('Content-Encoding: UTF-8');
+header("Content-Type: text/plain; encoding=utf-8");
 header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 header("Cache-Control: no-store, no-cache, must-revalidate");
