@@ -24,4 +24,13 @@
 	// Windows PSpellShell settings
 	//$config['PSpellShell.aspell'] = '"c:\Program Files\Aspell\bin\aspell.exe"';
 	//$config['PSpellShell.tmp'] = 'c:/temp';
+
+	//GoogleSpell Proxy options
+	//$config['GoogleSpell.proxy.type'] = 'http';
+	//$config['GoogleSpell.proxy.server'] = 'my.proxy.server';
+	//$config['GoogleSpell.proxy.port'] = '3128';
+	//$config['GoogleSpell.proxy.auth'] = 'basic';
+	//$config['GoogleSpell.proxy.user'] = 'username';
+	//$config['GoogleSpell.proxy.password'] = 'password';
+	//$config['GoogleSpell.connection.timeout'] = 10;
 ?>

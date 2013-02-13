@@ -83,6 +83,39 @@ class GoogleSpell extends SpellChecker {
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $header);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+			if (is_numeric($this->_config['GoogleSpell.connection.timeout']))
+			{
+				curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+			}
+			if (isset($this->_config['GoogleSpell.proxy.server']) && trim($this->_config['GoogleSpell.proxy.server'] != ""))
+			{
+				if ($this->_config['GoogleSpell.proxy.type'] == "http")
+				{
+					curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_HTTP);
+					curl_setopt($ch, CURLOPT_PROXY, "http://".$this->_config['GoogleSpell.proxy.server']);
+				}
+				else if($this->_config['GoogleSpell.proxy.type'] == "socks")
+				{
+					curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+					curl_setopt($ch, CURLOPT_PROXY, $this->_config['GoogleSpell.proxy.server']);
+				}
+				if (is_numeric($this->_config['GoogleSpell.proxy.port']))
+				{
+					curl_setopt($ch, CURLOPT_PROXYPORT, $this->_config['GoogleSpell.proxy.port']);
+				}
+				if ($this->_config['GoogleSpell.proxy.auth'] == "basic")
+				{
+					curl_setopt($ch, CURLOPT_PROXYAUTH, CURLAUTH_BASIC);
+				}
+				elseif ($this->_config['GoogleSpell.proxy.auth'] == "ntlm")
+				{
+					curl_setopt($ch, CURLOPT_PROXYAUTH, CURLAUTH_NTLM);
+				}
+				if (trim($this->_config['GoogleSpell.proxy.user']) != "")
+				{
+					curl_setopt($ch, CURLOPT_PROXYUSERPWD, $this->_config['GoogleSpell.proxy.user'].":".$this->_config['GoogleSpell.proxy.password']);
+				}
+			}
 			$xml = curl_exec($ch);
 			curl_close($ch);
 		} else {
