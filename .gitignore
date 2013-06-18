@@ -8,5 +8,6 @@ docs
 *.patch
 *.bak
 *.log
+node_modules
 .DS_Store
 editor_plugin.js

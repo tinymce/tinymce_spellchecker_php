@@ -1,0 +1,13 @@
+{
+	"name": "tinymce_spellchecker_php",
+	"version": "4.0.0",
+	"description": "PHP Spellchecker backend for TinyMCE 4.0",
+	"author": "Johan Sörlin <spocke@moxiecode.com>",
+	"bugs": { "url" : "http://www.tinymce.com/develop/bugtracker.php" },
+	"engines": {
+		"node" : ">=0.8.0"
+	},
+	"dependencies": {
+		"moxie-zip": ">= 0.0.1"
+	}
+}
