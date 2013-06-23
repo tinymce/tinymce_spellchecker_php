@@ -31,7 +31,7 @@ class TinyMCE_EnchantSpellChecker extends TinyMCE_SpellChecker {
 			$dict = enchant_broker_request_dict($enchant, $lang);
 
 			foreach ($words as $word) {
-				$correct = enchant_dict_check($dict, $value);
+				$correct = enchant_dict_check($dict, $word);
 
 				if (!$correct) {
 					$suggs = enchant_dict_suggest($dict, $word);
