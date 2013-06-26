@@ -99,7 +99,7 @@
 
 			// Find selected language
 			t.languages = {};
-			each(ed.getParam('spellchecker_languages', '+English=en,Danish=da,Dutch=nl,Finnish=fi,French=fr,German=de,Italian=it,Polish=pl,Portuguese=pt,Spanish=es,Swedish=sv', 'hash'), function(v, k) {
+			each(ed.getParam('spellchecker_languages', '+English=en,English British=en_gb,Danish=da,Dutch=nl,Finnish=fi,French=fr,German=de,Italian=it,Polish=pl,Portuguese=pt,Spanish=es,Swedish=sv', 'hash'), function(v, k) {
 				if (k.indexOf('+') === 0) {
 					k = k.substring(1);
 					t.selectedLang = v;
