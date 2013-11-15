@@ -14,6 +14,8 @@ npm install
 jake
 ```
 
+You will find the release package in the tmp folder.
+
 Contributing to the TinyMCE Spellchecker for PHP project
 ---------------------------------------------------------
 You can read more about how to contribute to this project at [http://tinymce.moxiecode.com/contributing](http://tinymce.moxiecode.com/contributing)
