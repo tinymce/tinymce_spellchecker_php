@@ -15,7 +15,7 @@ require('./includes/EnchantSpellChecker.php');
 require('./includes/PSpellSpellChecker.php');
 
 $tinymceSpellCheckerConfig = array(
-	"engine" => "google", // enchant, google or pspell
+	"engine" => "pspell", // enchant or pspell; google has discontinued their web service for spell check
 
 	// Enchant options
 	"enchant_dicts_path" => "",
