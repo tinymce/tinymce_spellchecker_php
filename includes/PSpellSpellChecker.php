@@ -20,7 +20,7 @@ class TinyMCE_PSpellChecker extends TinyMCE_SpellChecker {
 	public function getSuggestions($lang, $words) {
 		$config = $this->getConfig();
 
-		switch ($config['PSpell.mode']) {
+		switch ($config['pspell.mode']) {
 			case "fast":
 				$mode = PSPELL_FAST;
 				break;
