@@ -18,7 +18,8 @@ task("release", [], function () {
 		from: [
 			"includes",
 			"spellchecker.php",
-			"dicts/readme.md"
+			"dicts/readme.md",
+			"changelog.txt"
 		],
 
 		to: "tmp/tinymce_spellchecker_php_" + details.version + ".zip"
