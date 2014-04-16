@@ -9,8 +9,8 @@ How to build TinyMCE Spellchecker for PHP
 Install Node.JS and Jake globally using npm. Then just run jake to build a release package.
 
 ```
-npm jake -g
-npm install
+npm i jake -g
+npm i
 jake
 ```
 

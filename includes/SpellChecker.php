@@ -73,38 +73,69 @@ class TinyMCE_SpellChecker {
 		header("Cache-Control: post-check=0, pre-check=0", false);
 		header("Pragma: no-cache");
 
-		$json = json_decode(file_get_contents("php://input"));
-		if ($json && $json->method === "spellcheck") {
+		$method = self::getParam("method", "spellcheck");
+		$lang = self::getParam("lang", "en_US");
+		$text = self::getParam("text");
+
+		if ($method == "spellcheck") {
 			try {
+				if (!$text) {
+					throw new Exception("Missing input parameter 'text'.");
+				}
+
 				if (!$engine->isSupported()) {
 					throw new Exception("Current spellchecker isn't supported.");
 				}
 
-				// Sanitize input
-				$lang = preg_replace('/[^a-z\-_]/i', '', $json->params->lang); // a-z, -, _
-				$words = explode(' ', preg_replace('/[\x00-\x1F\x7F]/', '', implode(' ', $json->params->words))); // No control characters
-
-				$words = $engine->getSuggestions($lang, $words);
+				$words = self::getWords($text);
 
 				echo json_encode((object) array(
-					"id" => $json->id,
-					"result" => (object) $words,
-					"error" => null
+					"words" => (object) $engine->getSuggestions($lang, $words)
 				));
 			} catch (Exception $e) {
 				echo json_encode((object) array(
-					"id" => $json->id,
-					"result" => null,
 					"error" => $e->getMessage()
 				));
 			}
 		} else {
 			echo json_encode((object) array(
-				"id" => $json->id,
-				"result" => null,
 				"error" => "Invalid JSON input"
 			));
 		}
+	}
+
+	/**
+	 * Returns an request value by name without magic quoting.
+	 *
+	 * @param String $name Name of parameter to get.
+	 * @param String $default_value Default value to return if value not found.
+	 * @return String request value by name without magic quoting or default value.
+	 */
+	public static function getParam($name, $default_value = false) {
+		if (isset($_POST[$name])) {
+			$req = $_POST;
+		} else if (isset($_GET[$name])) {
+			$req = $_GET;
+		} else {
+			return $default_value;
+		}
+
+		// Handle magic quotes
+		if (ini_get("magic_quotes_gpc")) {
+			if (is_array($req[$name])) {
+				$out = array();
+
+				foreach ($req[$name] as $name => $value) {
+					$out[stripslashes($name)] = stripslashes($value);
+				}
+
+				return $out;
+			}
+
+			return stripslashes($req[$name]);
+		}
+
+		return $req[$name];
 	}
 
 	public static function add($name, $className) {
@@ -117,6 +148,20 @@ class TinyMCE_SpellChecker {
 		}
 
 		return self::$engines[$name];
+	}
+
+	public static function getWords($text) {
+		preg_match_all('(\w{3,})u', $text, $matches);
+		$words = $matches[0];
+
+		for ($i = count($words) - 1;  $i >= 0; $i--) {
+			// Exclude words with numbers in them
+			if (preg_match('/[0-9]+/', $words[$i])) {
+				array_splice($words, $i, 1);
+			}
+		}
+
+		return $words;
 	}
 }
 

@@ -15,10 +15,10 @@ require('./includes/EnchantSpellChecker.php');
 require('./includes/PSpellSpellChecker.php');
 
 $tinymceSpellCheckerConfig = array(
-	"engine" => "google", // enchant, google or pspell
+	"engine" => "enchant", // enchant, google or pspell
 
 	// Enchant options
-	"enchant_dicts_path" => "",
+	"enchant_dicts_path" => "./dicts",
 
 	// PSpell options
 	"pspell.mode" => "fast",

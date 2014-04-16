@@ -27,13 +27,17 @@ class TinyMCE_EnchantSpellChecker extends TinyMCE_SpellChecker {
 			enchant_broker_set_dict_path($enchant, ENCHANT_ISPELL, $config["enchant_dicts_path"]);
 		}
 
+		if (!enchant_broker_describe($enchant)) {
+			throw new Exception("Enchant spellchecker not find any backends.");
+		}
+
+		$lang = $this->normalizeLangCode($enchant, $lang);
+
 		if (enchant_broker_dict_exists($enchant, $lang)) {
 			$dict = enchant_broker_request_dict($enchant, $lang);
 
 			foreach ($words as $word) {
-				$correct = enchant_dict_check($dict, $value);
-
-				if (!$correct) {
+				if (!enchant_dict_check($dict, $word)) {
 					$suggs = enchant_dict_suggest($dict, $word);
 
 					if (!is_array($suggs)) {
@@ -48,7 +52,7 @@ class TinyMCE_EnchantSpellChecker extends TinyMCE_SpellChecker {
 			enchant_broker_free($enchant);
 		} else {
 			enchant_broker_free($enchant);
-			throw new Exception("Could not find dictionary. Code: " . $lang);
+			throw new Exception("Enchant spellchecker could not find dictionary for language: " . $lang);
 		}
 
 		return $suggestions;
@@ -61,6 +65,24 @@ class TinyMCE_EnchantSpellChecker extends TinyMCE_SpellChecker {
 	 */
 	public function isSupported() {
 		return function_exists("enchant_broker_init");
+	}
+
+	private function normalizeLangCode($enchant, $lang) {
+		$variants = array(
+			"en" => array("en_US", "en_GB")
+		);
+
+		if (isset($variants[$lang])) {
+			array_unshift($variants, $lang);
+
+			foreach ($variants[$lang] as $variant) {
+				if (enchant_broker_dict_exists($enchant, $variant)) {
+					return $variant;
+				}
+			}
+		}
+
+		return $lang;
 	}
 }
 
