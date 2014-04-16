@@ -1,6 +1,6 @@
 <?php
 /**
- * PSpellChecker.php
+ * PSpellEngine.php
  *
  * Copyright, Moxiecode Systems AB
  * Released under LGPL License.
@@ -9,7 +9,7 @@
  * Contributing: http://www.tinymce.com/contributing
  */
 
-class TinyMCE_PSpellChecker extends TinyMCE_SpellChecker {
+class TinyMCE_SpellChecker_PSpellEngine extends TinyMCE_SpellChecker_Engine {
 	/**
 	 * Spellchecks an array of words.
 	 *
@@ -66,5 +66,5 @@ class TinyMCE_PSpellChecker extends TinyMCE_SpellChecker {
 	}
 }
 
-TinyMCE_Spellchecker::add("pspell", "TinyMCE_PSpellChecker");
+TinyMCE_Spellchecker_Engine::add("pspell", "TinyMCE_SpellChecker_PSpellEngine");
 ?>

@@ -1,6 +1,6 @@
 <?php
 /**
- * EnchantSpellChecker.php
+ * EnchantEngine.php
  *
  * Copyright, Moxiecode Systems AB
  * Released under LGPL License.
@@ -9,7 +9,7 @@
  * Contributing: http://www.tinymce.com/contributing
  */
 
-class TinyMCE_EnchantSpellChecker extends TinyMCE_SpellChecker {
+class TinyMCE_SpellChecker_EnchantEngine extends TinyMCE_SpellChecker_Engine {
 	/**
 	 * Spellchecks an array of words.
 	 *
@@ -86,5 +86,5 @@ class TinyMCE_EnchantSpellChecker extends TinyMCE_SpellChecker {
 	}
 }
 
-TinyMCE_Spellchecker::add("enchant", "TinyMCE_EnchantSpellChecker");
+TinyMCE_Spellchecker_Engine::add("enchant", "TinyMCE_SpellChecker_EnchantEngine");
 ?>

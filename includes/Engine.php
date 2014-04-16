@@ -1,6 +1,6 @@
 <?php
 /**
- * spellcheck.base.php
+ * Engine.php
  *
  * Copyright, Moxiecode Systems AB
  * Released under LGPL License.
@@ -12,7 +12,7 @@
  * spelling on and returns the suggestions.
  */
 
-class TinyMCE_SpellChecker {
+class TinyMCE_SpellChecker_Engine {
 	private static $engines = array();
 	private $config;
 

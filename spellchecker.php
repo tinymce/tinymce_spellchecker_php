@@ -9,13 +9,12 @@
  * Contributing: http://www.tinymce.com/contributing
  */
 
-require('./includes/SpellChecker.php');
-require('./includes/GoogleSpellChecker.php');
-require('./includes/EnchantSpellChecker.php');
-require('./includes/PSpellSpellChecker.php');
+require('./includes/Engine.php');
+require('./includes/EnchantEngine.php');
+require('./includes/PSpellEngine.php');
 
 $tinymceSpellCheckerConfig = array(
-	"engine" => "enchant", // enchant, google or pspell
+	"engine" => "enchant", // enchant, pspell
 
 	// Enchant options
 	"enchant_dicts_path" => "./dicts",
@@ -27,5 +26,5 @@ $tinymceSpellCheckerConfig = array(
 	"pspell.encoding" => ""
 );
 
-TinyMCE_Spellchecker::processRequest($tinymceSpellCheckerConfig);
+TinyMCE_Spellchecker_Engine::processRequest($tinymceSpellCheckerConfig);
 ?>
