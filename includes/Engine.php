@@ -97,6 +97,10 @@ class TinyMCE_SpellChecker_Engine {
 					"error" => $e->getMessage()
 				));
 			}
+		} else if ($method) {
+			echo json_encode((object) array(
+				"error" => "Unsupported method: " . $method
+			));
 		} else {
 			echo json_encode((object) array(
 				"error" => "Invalid JSON input"
