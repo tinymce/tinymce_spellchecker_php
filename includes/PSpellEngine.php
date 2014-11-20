@@ -20,7 +20,7 @@ class TinyMCE_SpellChecker_PSpellEngine extends TinyMCE_SpellChecker_Engine {
 	public function getSuggestions($lang, $words) {
 		$config = $this->getConfig();
 
-		switch ($config['PSpell.mode']) {
+		switch ($config['pspell.mode']) {
 			case "fast":
 				$mode = PSPELL_FAST;
 				break;
@@ -48,8 +48,10 @@ class TinyMCE_SpellChecker_PSpellEngine extends TinyMCE_SpellChecker_Engine {
 
 		$outWords = array();
 		foreach ($words as $word) {
-			if (!pspell_check($plink, trim($word))) {
-				$outWords[] = utf8_encode($word);
+			$word = trime($word);
+			if(!pspell_check($plink, $word)) {
+				$suggs = pspell_suggest($plink, $word);
+				$outWords[utf8_encode($word)] = $suggs;
 			}
 		}
 
