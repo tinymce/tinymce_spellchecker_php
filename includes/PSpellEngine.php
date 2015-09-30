@@ -49,7 +49,11 @@ class TinyMCE_SpellChecker_PSpellEngine extends TinyMCE_SpellChecker_Engine {
 		$outWords = array();
 		foreach ($words as $word) {
 			if (!pspell_check($plink, trim($word))) {
-				$outWords[] = utf8_encode($word);
+				$outWords[$word] = array();
+
+				foreach( pspell_suggest($plink, trim($word)) as $suggestedWord ) {
+					$outWords[$word][] = utf8_encode($suggestedWord);
+				}
 			}
 		}
 
