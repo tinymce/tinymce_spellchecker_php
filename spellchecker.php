@@ -26,5 +26,5 @@ $tinymceSpellCheckerConfig = array(
 	"pspell.encoding" => ""
 );
 
-TinyMCE_Spellchecker_Engine::processRequest($tinymceSpellCheckerConfig);
+TinyMCE_SpellChecker_Engine::processRequest($tinymceSpellCheckerConfig);
 ?>
