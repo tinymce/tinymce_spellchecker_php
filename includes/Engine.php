@@ -155,7 +155,7 @@ class TinyMCE_SpellChecker_Engine {
 	}
 
 	public static function getWords($text) {
-		preg_match_all('(\w{3,})u', $text, $matches);
+		preg_match_all('(\w{2,})u', $text, $matches);
 		$words = $matches[0];
 
 		for ($i = count($words) - 1;  $i >= 0; $i--) {
